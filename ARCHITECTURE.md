@@ -137,7 +137,8 @@ Raw MongoDB Result → Data Transformer → Visualization Adapter → UI Compone
   _id: ObjectId,
   name: String,
   description: String,
-  tags: [String],
+  tags: [String],           // Category/tag system for filtering
+  category: String,         // Primary category for organization
   
   // MongoDB aggregation pipeline
   pipeline: [Object],
@@ -160,6 +161,13 @@ Raw MongoDB Result → Data Transformer → Visualization Adapter → UI Compone
   visualizations: [{
     type: 'table' | 'chart' | 'map',
     config: Object // type-specific configuration
+  }],
+  
+  // Export settings
+  exportable: Boolean,      // Whether query can be exported
+  exportFormats: [{         // Available export formats
+    type: 'excel' | 'csv' | 'geojson',
+    includeCharts: Boolean  // For Excel: embed charts/graphs
   }],
   
   // Access control
@@ -204,7 +212,10 @@ Raw MongoDB Result → Data Transformer → Visualization Adapter → UI Compone
 
 ```typescript
 // Query Management
-GET    /api/queries                 // List queries with filtering
+GET    /api/queries                 // List queries with filtering by name/tags
+GET    /api/queries/search          // Search queries by name, tags, category
+GET    /api/queries/tags            // Get all available tags
+GET    /api/queries/categories      // Get all available categories
 POST   /api/queries                 // Create new query
 GET    /api/queries/:id             // Get query details
 PUT    /api/queries/:id             // Update query
@@ -213,7 +224,8 @@ DELETE /api/queries/:id             // Delete query
 // Query Execution
 POST   /api/queries/:id/execute     // Execute query with parameters
 GET    /api/queries/:id/preview     // Preview query results (limited)
-POST   /api/queries/:id/export      // Start export job
+POST   /api/queries/:id/export      // Start export job (Excel/CSV/GeoJSON)
+GET    /api/queries/:id/export-options // Get available export formats for query
 
 // Query Building
 POST   /api/queries/validate        // Validate pipeline

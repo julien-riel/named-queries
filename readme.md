@@ -1,95 +1,203 @@
-Voici une reformulation de ton idée suivie d’une proposition de solution élargie et structurée :
+# MongoDB Named Queries Explorer
+
+A dynamic MongoDB data exploration tool that integrates into existing web applications. This tool allows users to **define, execute, and visualize MongoDB aggregation queries** through a browser interface, with a REST API providing server-client communication.
+
+The goal is to **offer a flexible querying interface** and **present results as tables, maps, or charts** for analysis.
+
+## 🚀 Features
+
+### 1. 📥 MongoDB Query Definition via Forms
+
+* Web interface for creating MongoDB aggregation pipelines
+* Each query is persisted with:
+  * Unique identifier
+  * Human-readable name (selection by name)
+  * Description
+  * Tags/categories for search and filtering
+  * Metadata: column names, types, formatters, sortable flags, etc.
+  * Dynamic filter definitions
+
+### 2. 📊 Tabular Visualization
+
+* Results displayed in dynamic tables:
+  * Complete pagination (total count known)
+  * Server-side sorting on defined columns
+  * Dynamic column filters (text, value, ranges, etc.)
+  * Individual record view mode
+
+### 3. 🗺️ Map Visualization
+
+* Interactive map display when results contain GeoJSON fields or coordinates
+* Support for clustering and heatmaps where applicable
+
+### 4. 📈 Chart Visualization
+
+* Automatic chart generation when results contain data series (label, val1, val2, etc.):
+  * Bar charts, line charts, pie charts, etc.
+  * Customizable chart types and axes
+
+## 🏗️ Architecture
+
+### Frontend (React/Vue/Angular)
+
+* Interface for creating, configuring, and testing aggregation queries
+* Rendering components: table, record view, map, chart
+* Dynamic filter forms generated from metadata
+
+### Backend (Node.js - Express/Fastify)
+
+* REST API for:
+  * Listing and managing saved queries
+  * Executing queries with pagination, sorting, filters
+  * Returning transformed results based on client parameters
+* Middleware to dynamically wrap MongoDB queries with conditions (match, sort, skip, limit)
+* Security: pipeline validation, authentication, role-based access control
+
+### Database (MongoDB)
+
+* Business data storage
+* Dedicated collection for custom queries (pipelines + metadata)
+
+## 💡 Advanced Features
+
+| Feature | Description |
+|---------|-------------|
+| 🔄 Execution History | Track executed queries (timestamp, user, parameters) |
+| 💾 Export | Export results to CSV/Excel (with embedded charts)/GeoJSON |
+| 🔐 Permissions | Role-based query visibility and execution rights |
+| 🎯 Favorites/Dashboards | Group queries into user dashboards |
+| 📦 Integration Plugin | Expose each query as external data source (JSON endpoints for Power BI, etc.) |
+| 🧪 Test Mode | Sandbox interface for testing queries before saving |
+| 🧠 Auto-suggestions | Pipeline creation with auto-completion and pre-built blocks (like MongoDB Compass) |
+
+## 🧰 Technology Stack
+
+### Frontend
+* **Framework**: React + TypeScript
+* **UI Library**: Material UI / Tailwind CSS
+* **Charts**: Recharts
+* **Maps**: Leaflet / MapLibre
+* **Build Tool**: Vite
+
+### Backend
+* **Runtime**: Node.js (Express/Fastify)
+* **Database ODM**: Mongoose
+* **Authentication**: JWT / OAuth (integration with existing applications)
+* **Validation**: Joi schema validation
+
+### Database
+* **Primary**: MongoDB ≥ 4.4 with aggregation support
+* **Collections**: Business data + query metadata
+
+### DevOps
+* **Containerization**: Docker
+* **Reverse Proxy**: Nginx / Traefik integration
+* **Deployment**: Container orchestration ready
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+* Node.js 18+
+* MongoDB 4.4+
+* Docker (optional)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd named-queries
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your MongoDB connection string and other settings
+
+# Start development servers
+npm run dev
+```
+
+### Docker Setup
+
+```bash
+# Start MongoDB and services
+docker-compose up -d
+
+# Access the application
+open http://localhost:3000
+```
+
+## 📖 Usage
+
+1. **Create a Query**: Use the visual pipeline builder to create MongoDB aggregation queries
+2. **Configure Metadata**: Define column types, display names, and visualization preferences
+3. **Test & Save**: Test your query in sandbox mode, then save with tags and description
+4. **Execute & Visualize**: Run saved queries with dynamic filters and view results as tables, charts, or maps
+5. **Export**: Download results in various formats (CSV, Excel, GeoJSON)
+
+## 🔧 Configuration
+
+### Environment Variables
+
+```bash
+MONGODB_URI=mongodb://localhost:27017/your-database
+JWT_SECRET=your-jwt-secret
+NODE_ENV=development
+PORT=4000
+REDIS_URL=redis://localhost:6379 # Optional for caching
+```
+
+### Integration with Existing Applications
+
+```javascript
+// Embed as iframe
+<iframe src="/named-queries/embed?queryId=123" />
+
+// React component integration
+import { QueryRenderer } from '@named-queries/react';
+<QueryRenderer queryId="123" theme="dark" />
+
+// API integration
+const results = await fetch('/api/queries/123/execute', {
+  method: 'POST',
+  body: JSON.stringify({ filters: {...}, pagination: {...} })
+});
+```
+
+## 🔒 Security
+
+* Pipeline validation with operator whitelisting
+* Query complexity limits (execution time, memory usage)
+* Role-based access control
+* Input sanitization and validation
+* Resource usage monitoring
+
+## 📚 Documentation
+
+* [Architecture Guide](./ARCHITECTURE.md) - Detailed technical architecture
+* [API Reference](./docs/api.md) - Complete API documentation
+* [Deployment Guide](./docs/deployment.md) - Production deployment instructions
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🆘 Support
+
+* [Issues](https://github.com/your-username/named-queries/issues) - Bug reports and feature requests
+* [Discussions](https://github.com/your-username/named-queries/discussions) - Community support and questions
 
 ---
 
-### 🔍 **Objectif reformulé**
-
-Tu souhaites développer un **outil d’exploration de données MongoDB** intégré dans des applications web existantes. L’outil permettra de **définir, exécuter et visualiser dynamiquement des requêtes d’agrégation MongoDB** à partir d’un navigateur, avec un API REST intermédiaire assurant la communication serveur–client.
-
-L’objectif est à la fois d’**offrir une interface de requêtage flexible** et de **présenter les résultats sous forme de tableaux, de cartes ou de graphiques** exploitables.
-
----
-
-### ✅ **Fonctionnalités principales (reformulées)**
-
-#### 1. 📥 Définition de requêtes Mongo via formulaire
-
-* Interface Web pour créer des requêtes d'agrégation MongoDB (pipeline).
-* Chaque requête est persistée avec :
-
-  * Un identifiant unique.
-  * Un nom lisible.
-  * Une description.
-  * Des métadonnées : noms de colonnes, types, formatteurs, triables ou non, etc.
-  * Des définitions de filtres dynamiques.
-
-#### 2. 📊 Visualisation tabulaire
-
-* Résultats affichés dans un tableau dynamique :
-
-  * Pagination complète (nombre total connu).
-  * Tri côté serveur sur les colonnes définies.
-  * Filtres dynamiques par colonnes (texte, valeur, plages, etc.).
-  * Mode "fiche individuelle" pour voir un objet à la fois.
-
-#### 3. 🗺️ Affichage cartographique
-
-* Si les résultats comportent un champ GeoJSON ou des coordonnées, affichage sur une carte interactive.
-* Support de clustering ou heatmap si applicable.
-
-#### 4. 📈 Affichage graphique
-
-* Si les résultats retournent des séries de données (label, val1, val2, etc.), génération de graphiques :
-
-  * Barres, lignes, camemberts, etc.
-  * Personnalisables par type de graphique et axe.
-
----
-
-### 🏗️ Architecture proposée
-
-#### Client Web (React / Vue / Angular)
-
-* Interface pour créer, configurer et tester les requêtes d’agrégation.
-* Composants de rendu : tableau, fiche, carte, graphique.
-* Formulaires de filtres dynamiques générés à partir des métadonnées.
-
-#### Serveur Node.js (Express ou Fastify)
-
-* API REST pour :
-
-  * Lister et gérer les requêtes enregistrées.
-  * Exécuter une requête avec pagination, tri, filtres.
-  * Retourner les résultats transformés selon les paramètres clients.
-* Middleware pour "wrapper" dynamiquement la requête Mongo avec les conditions (match, sort, skip, limit).
-* Sécurité : validation des pipelines enregistrés, authentification, limites d’accès par rôle.
-
-#### Base de données MongoDB
-
-* Stockage des données métier.
-* Collection dédiée aux requêtes personnalisées (pipelines + métadonnées).
-
----
-
-### 💡 Fonctionnalités supplémentaires proposées
-
-| Fonction                  | Description                                                                                                   |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| 🔄 Historique d’exécution | Garder trace des requêtes exécutées (timestamp, utilisateur, paramètres)                                      |
-| 💾 Exportation            | Export des résultats en CSV / Excel / GeoJSON                                                                 |
-| 🔐 Permissions            | Requêtes visibles/exécutables par rôle ou utilisateur                                                         |
-| 🎯 Favoris / Dashboards   | Grouper des requêtes dans des "dashboards" utilisateurs                                                       |
-| 📦 Plugin d’intégration   | Exposer chaque requête comme une source de données externe (JSON endpoint lisible par Power BI, etc.)         |
-| 🧪 Mode test              | Interface sandbox pour tester une requête avant de la sauvegarder                                             |
-| 🧠 Auto-suggestions       | Pour la création du pipeline, proposer de l’auto-complétion ou des blocs préfabriqués (comme MongoDB Compass) |
-
----
-
-### 🧰 Technologies recommandées
-
-* **Frontend** : React + Material UI / Tailwind + Recharts + Leaflet / MapLibre
-* **Backend** : Node.js (Express/Fastify) + Mongoose
-* **Auth** : JWT / OAuth (intégration dans applications existantes)
-* **BD** : MongoDB ≥ 4.4 avec agrégation
-* **Déploiement** : Docker, intégration dans un reverse proxy existant (Nginx, Traefik)
-1
+Built with ❤️ for dynamic MongoDB data exploration

@@ -18,8 +18,9 @@ This is a MongoDB data exploration tool that allows dynamic querying, visualizat
 - Query builder interface for MongoDB aggregation pipelines
 - Dynamic result rendering (tabular, map, chart views)
 - Query persistence with metadata (names, descriptions, column definitions)
+- Query selection by name with tag/category system for search and filtering
 - Dynamic filtering and server-side pagination
-- Export functionality (CSV, Excel, GeoJSON)
+- Export functionality (CSV, Excel with graphs, GeoJSON)
 
 ## Development Commands
 
@@ -48,6 +49,9 @@ docker build .       # Build application image
 - Performance optimization for large datasets
 - GeoJSON coordinate handling for map visualizations
 - Chart data transformation from MongoDB results
+- Query tagging and categorization system for efficient organization
+- Excel export with embedded chart/graph generation
+- Query metadata indexing for fast name-based search
 
 ## Security Requirements
 
