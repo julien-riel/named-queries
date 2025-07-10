@@ -44,8 +44,7 @@ docker build .       # Build application image
 ## Technical Considerations
 
 - MongoDB aggregation pipeline validation and security
-- Authentication integration with existing applications
-- Role-based access control for queries
+- No Authentication
 - Performance optimization for large datasets
 - GeoJSON coordinate handling for map visualizations
 - Chart data transformation from MongoDB results
@@ -53,9 +52,12 @@ docker build .       # Build application image
 - Excel export with embedded chart/graph generation
 - Query metadata indexing for fast name-based search
 
+## Build/Deploy
+
+Serve the compiled file of the SPA in a `public` folder
+
 ## Security Requirements
 
 - Validate all MongoDB aggregation pipelines before execution
 - Implement query result limits to prevent resource exhaustion
-- Secure API endpoints with proper authentication
 - Sanitize user inputs in dynamic filters

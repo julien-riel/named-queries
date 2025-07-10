@@ -38,7 +38,9 @@ The goal is to **offer a flexible querying interface** and **present results as 
 
 ## 🏗️ Architecture
 
-### Frontend (React/Vue/Angular)
+No Authentication for now. Don't do nothing about it
+
+### Frontend (Angular)
 
 * Interface for creating, configuring, and testing aggregation queries
 * Rendering components: table, record view, map, chart
@@ -76,13 +78,12 @@ The goal is to **offer a flexible querying interface** and **present results as 
 * **Framework**: React + TypeScript
 * **UI Library**: Material UI / Tailwind CSS
 * **Charts**: Recharts
-* **Maps**: Leaflet / MapLibre
+* **Maps**: MapLibre
 * **Build Tool**: Vite
 
 ### Backend
 * **Runtime**: Node.js (Express/Fastify)
 * **Database ODM**: Mongoose
-* **Authentication**: JWT / OAuth (integration with existing applications)
 * **Validation**: Joi schema validation
 
 ### Database
@@ -177,7 +178,6 @@ const results = await fetch('/api/queries/123/execute', {
 
 ## 📚 Documentation
 
-* [Architecture Guide](./ARCHITECTURE.md) - Detailed technical architecture
 * [API Reference](./docs/api.md) - Complete API documentation
 * [Deployment Guide](./docs/deployment.md) - Production deployment instructions
 
