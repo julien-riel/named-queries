@@ -9,6 +9,7 @@ The goal is to **offer a flexible querying interface** and **present results as 
 ### 1. 📥 MongoDB Query Definition via Forms
 
 * Web interface for creating MongoDB aggregation pipelines
+* Simple UI for a query. Aggregate Query are in plain-text json.
 * Each query is persisted with:
   * Unique identifier
   * Human-readable name (selection by name)
@@ -42,7 +43,7 @@ No Authentication for now. Don't do nothing about it
 
 ### Frontend (Angular)
 
-* Interface for creating, configuring, and testing aggregation queries
+* Simple Interface with textboxes, text area, select for creating, configuring, and testing aggregation queries (no complex form and interactivity)
 * Rendering components: table, record view, map, chart
 * Dynamic filter forms generated from metadata
 
@@ -53,7 +54,7 @@ No Authentication for now. Don't do nothing about it
   * Executing queries with pagination, sorting, filters
   * Returning transformed results based on client parameters
 * Middleware to dynamically wrap MongoDB queries with conditions (match, sort, skip, limit)
-* Security: pipeline validation, authentication, role-based access control
+* Security: pipeline validation, NO authentication 
 
 ### Database (MongoDB)
 
@@ -64,13 +65,10 @@ No Authentication for now. Don't do nothing about it
 
 | Feature | Description |
 |---------|-------------|
-| 🔄 Execution History | Track executed queries (timestamp, user, parameters) |
+| 🔄 Execution History | Track executed queries (timestamp, parameters) |
 | 💾 Export | Export results to CSV/Excel (with embedded charts)/GeoJSON |
-| 🔐 Permissions | Role-based query visibility and execution rights |
-| 🎯 Favorites/Dashboards | Group queries into user dashboards |
 | 📦 Integration Plugin | Expose each query as external data source (JSON endpoints for Power BI, etc.) |
 | 🧪 Test Mode | Sandbox interface for testing queries before saving |
-| 🧠 Auto-suggestions | Pipeline creation with auto-completion and pre-built blocks (like MongoDB Compass) |
 
 ## 🧰 Technology Stack
 
@@ -133,7 +131,7 @@ open http://localhost:3000
 
 ## 📖 Usage
 
-1. **Create a Query**: Use the visual pipeline builder to create MongoDB aggregation queries
+1. **Create a Query**: Use the query form to create MongoDB aggregation queries
 2. **Configure Metadata**: Define column types, display names, and visualization preferences
 3. **Test & Save**: Test your query in sandbox mode, then save with tags and description
 4. **Execute & Visualize**: Run saved queries with dynamic filters and view results as tables, charts, or maps
@@ -172,14 +170,11 @@ const results = await fetch('/api/queries/123/execute', {
 
 * Pipeline validation with operator whitelisting
 * Query complexity limits (execution time, memory usage)
-* Role-based access control
 * Input sanitization and validation
-* Resource usage monitoring
 
 ## 📚 Documentation
 
 * [API Reference](./docs/api.md) - Complete API documentation
-* [Deployment Guide](./docs/deployment.md) - Production deployment instructions
 
 ## 🤝 Contributing
 

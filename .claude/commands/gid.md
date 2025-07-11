@@ -33,9 +33,6 @@ gh issue view $ARGUMENTS --json title,body,labels,assignees
 
 ### 2. Branch Management
 ```bash
-# Ensure clean working directory
-git status
-git stash push -m "WIP: before issue-$ARGUMENTS"
 
 # Update main branch
 git checkout main
