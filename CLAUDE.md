@@ -10,12 +10,12 @@ This is a MongoDB Named Queries Explorer - a dynamic data exploration tool that 
 
 The project follows a full-stack architecture:
 
-### Frontend (React + TypeScript)
-- **Framework**: React with TypeScript
-- **UI Library**: Material UI / Tailwind CSS  
-- **Charts**: Recharts for data visualization
-- **Maps**: MapLibre for geographic data
-- **Build Tool**: Vite
+### Frontend (Angular + TypeScript)
+- **Framework**: Angular with TypeScript
+- **UI Library**: Angular Material / Tailwind CSS  
+- **Charts**: Chart.js or ng2-charts for data visualization
+- **Maps**: Leaflet with Angular integration
+- **Build Tool**: Angular CLI
 - **Components**: Query forms, table renderer, record view, map viewer, chart generator
 
 ### Backend (Node.js)
@@ -92,14 +92,14 @@ Required environment variables:
 
 The tool is designed to integrate with existing applications through:
 - iframe embedding: `/named-queries/embed?queryId=123`
-- React component integration
+- Angular component integration
 - Direct API access for external systems (Power BI, etc.)
 
 ## File Structure (When Implemented)
 
 ```
 /
-├── frontend/          # React TypeScript application
+├── frontend/          # Angular TypeScript application
 ├── backend/           # Node.js Express API
 ├── shared/            # Shared types and utilities
 ├── docs/              # API documentation

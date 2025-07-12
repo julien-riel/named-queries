@@ -73,16 +73,22 @@ No Authentication for now. Don't do nothing about it
 ## 🧰 Technology Stack
 
 ### Frontend
-* **Framework**: React + TypeScript
-* **UI Library**: Material UI / Tailwind CSS
-* **Charts**: Recharts
-* **Maps**: MapLibre
-* **Build Tool**: Vite
+* **Framework**: Angular + TypeScript
+* **UI Library**: Angular Material / Tailwind CSS
+* **Charts**: Chart.js or ng2-charts
+* **Maps**: Leaflet
+* **Build Tool**: Angular CLI
 
 ### Backend
 * **Runtime**: Node.js (Express/Fastify)
 * **Database ODM**: Mongoose
 * **Validation**: Joi schema validation
+
+### Testing
+* **Unit Tests**: Jest for backend and frontend unit testing
+* **E2E Tests**: Cypress for end-to-end testing
+* **API Tests**: Jest + Supertest for API endpoint testing
+* **Frontend Tests**: Angular Testing Library + Jest
 
 ### Database
 * **Primary**: MongoDB ≥ 4.4 with aggregation support
@@ -117,6 +123,12 @@ cp .env.example .env
 
 # Start development servers
 npm run dev
+
+# Run tests
+npm test              # Run all tests (Jest + Cypress)
+npm run test:unit     # Run unit tests only (Jest)
+npm run test:e2e      # Run end-to-end tests (Cypress)
+npm run test:watch    # Run tests in watch mode
 ```
 
 ### Docker Setup
@@ -155,15 +167,50 @@ REDIS_URL=redis://localhost:6379 # Optional for caching
 // Embed as iframe
 <iframe src="/named-queries/embed?queryId=123" />
 
-// React component integration
-import { QueryRenderer } from '@named-queries/react';
-<QueryRenderer queryId="123" theme="dark" />
+// Angular component integration
+import { QueryRendererComponent } from '@named-queries/angular';
+<named-queries-renderer [queryId]="'123'" [theme]="'dark'"></named-queries-renderer>
 
 // API integration
 const results = await fetch('/api/queries/123/execute', {
   method: 'POST',
   body: JSON.stringify({ filters: {...}, pagination: {...} })
 });
+```
+
+## 🧪 Testing Strategy
+
+### Unit Testing (Jest)
+* **Backend**: API endpoints, business logic, MongoDB operations
+* **Frontend**: Angular components, services, pipes
+* **Coverage**: Minimum 80% code coverage required
+* **Mocking**: External dependencies (MongoDB, HTTP requests)
+
+### End-to-End Testing (Cypress)
+* **User Flows**: Complete query creation and execution workflows
+* **Visual Testing**: Chart rendering, table pagination, map interactions
+* **Cross-browser**: Chrome, Firefox, Safari support
+* **Test Data**: Isolated test database with fixture data
+
+### API Testing
+* **Integration Tests**: Jest + Supertest for API endpoints
+* **Validation**: Request/response schema validation
+* **Error Handling**: HTTP status codes and error messages
+* **Performance**: Response time and load testing
+
+### Testing Commands
+```bash
+# Run all tests with coverage
+npm run test:coverage
+
+# Run tests in CI mode
+npm run test:ci
+
+# Open Cypress interactive mode
+npm run cypress:open
+
+# Generate test reports
+npm run test:report
 ```
 
 ## 🔒 Security
